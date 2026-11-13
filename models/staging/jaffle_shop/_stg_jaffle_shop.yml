@@ -1,0 +1,37 @@
+models:
+  - name: stg_jaffle_shop__customers
+    description: "This staging model represents the customers data from the Jaffle Shop source."
+    columns:
+      - name: customer_id
+        description: "customer_id is the primary key"
+        data_tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "The first name of the customer."
+      - name: last_name
+        description: "The last name of the customer."
+          
+
+  - name: stg_jaffle_shop__orders
+    description: "This staging model represents the orders data from the Jaffle Shop source."
+    columns:
+      - name: customer_id
+        description: "customer_id is the foreign key referencing customers"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_jaffle_shop__orders')
+                field: customer_id
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+      - name: status
+        description: "{{doc('order_status')}}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['placed', 'shipped', 'completed', 'returned', 'return_pending']
+      - name: order_date
+        description: "The date when the order was placed."

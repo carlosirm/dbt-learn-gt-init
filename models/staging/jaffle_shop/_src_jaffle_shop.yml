@@ -1,0 +1,15 @@
+sources:
+  - name: jaffle_shop
+    description: "The source data for the jaffle shop project."
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        description: "A table containing customer information."
+      - name: orders
+        description: "A table containing order information."
+        config:
+          freshness:
+            warn_after: {count: 12, period: hour}
+            error_after: {count: 24, period: hour}
+            loaded_at_field: _etl_loaded_at
