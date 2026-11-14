@@ -1,0 +1,17 @@
+models:
+  - name: stg_stripe__payment
+    description: "This staging model represents the payments data from the Stripe source."
+    columns:
+      - name: order_id
+        description: "order related to the payment. Could be repeated if there is a reverse operation"
+      - name: payment_id
+        description: "payment_id is the primary key."
+        data_tests:
+          - unique
+          - not_null
+      - name: amount
+        description: "The amount of the payment."
+      - name: status
+        description: "The status of the payment."
+      - name: payment_method
+        description: "{{doc('payment_method')}}"
